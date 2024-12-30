@@ -43,9 +43,9 @@ public:
     return dp[target] > INT_MAX ? INT_MAX : dp[target]; // Ensure result is within 32-bit integer limits
 }
     int combinationSum4(vector<int>& nums, int target) {
-        vector<int> dp(target+1,-1);
-        return memoization(nums,target,dp);
+        // vector<int> dp(target+1,-1);
+        // return memoization(nums,target,dp);
 
-        // return tabulation(nums,target);
+        return tabulation(nums,target);
     }
 };

@@ -18,15 +18,16 @@ public:
         dp[0]=0;
         for(int j=1;j<=n;j++){
             for(int i=1;i*i<=n;i++){
-                dp[j]=min( dp[j], 1+ dp[j-(i*i)] );
+                if((j-(i*i)) >= 0)
+                    dp[j]=min( dp[j], 1+ dp[j-(i*i)] );
             }
         }
         return dp[n];
     }
     int numSquares(int n) {
-        	vector<int> dp(n+1,-1);
-        	return solvemem(n,dp);
+        	// vector<int> dp(n+1,-1);
+        	// return solvemem(n,dp);
 
-            // return solvetab(n);
+            return solvetab(n);
         }
 };

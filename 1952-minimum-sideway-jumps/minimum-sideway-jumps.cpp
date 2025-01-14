@@ -51,12 +51,43 @@ public:
         }
         return min(dp[2][0], min(dp[1][0]+1 , dp[3][0]+1));
     }
+
+    int spaceOpt(vector<int>& obstacles, int n){
+        vector<int> curr(4, INT_MAX);
+        vector<int> next(4, 0);
+        
+        for(int pos=n-2; pos>=0; pos--){
+            for(int lane=1; lane<=3; lane ++){
+                //move in same lane
+                if(obstacles[pos+1] != lane){
+                    curr[lane]= next[lane];
+                }
+                //change the lane
+                else{
+                    int ans=1e9;
+                    for(int i=1; i<=3;i++){
+                        // same lane na ho aur os lane me obstical na ho to change kar do
+                        if(i != lane && obstacles[pos] != i)
+                        // please understand the game of pos+1 in video
+                            ans= min(ans, 1+ next[i]);
+                    }
+                    curr[lane]= ans;
+                }
+            }
+            next=curr;
+        }
+        return min(curr[2], min(curr[1]+1 , curr[3]+1));
+    }
+
+
     int minSideJumps(vector<int>& obstacles) {
         int n=obstacles.size();
 
         // vector<vector<int>> dp(4, vector<int> (n, -1));
         // return solveMem(obstacles, 0, 2, dp);
 
-        return solveTab(obstacles, n);
+        // return solveTab(obstacles, n);
+
+        return spaceOpt(obstacles, n);
     }
 };
